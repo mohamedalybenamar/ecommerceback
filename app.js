@@ -1,0 +1,35 @@
+const express=require('express')
+const dotenv=require('dotenv')
+const mongoose=require("mongoose")
+const app=express()
+const categorieRouter =require("./routes/categorie.routes")
+const scategorieRouter =require("./routes/scategorie.routes")
+const articleRouter =require("./routes/article.routes")
+dotenv.config()
+//middleware
+app.use(express.json())
+
+
+app.get('/',(req,res)=>{ 
+    res.send(' Bienvenue dans notre site!'); 
+});
+app.get('/contact',(req,res)=>{ 
+    res.send('la page contact'); 
+});
+
+app.use('/api/categories', categorieRouter);
+app.use('/api/scategories', scategorieRouter);
+app.use('/api/articles', articleRouter);
+// Connexion à la base données
+mongoose.connect(process.env.DATABASECLOUD/*,{
+useNEWUrlParser: true, 
+useUnifiedTopology: true 
+}*/)
+.then(() => {console.log("DataBase Successfully Connected");})
+.catch(err => { console.log("Unable to connect to database", err);
+process.exit(); });
+
+app.listen(process.env.PORT)
+console.log('app is running on port'+ process.env.PORT); 
+
+module.exports = app;
