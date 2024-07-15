@@ -9,8 +9,7 @@ const articleRouter =require("./routes/article.routes")
 dotenv.config()
 //middleware
 app.use(express.json())
-app.use(cors{
-    origin:"*"}
+app.use(cors({origin:"*"}) 
 )
 app.get('/',(req,res)=>{ 
     res.send(' Bienvenue dans notre site!'); 
