@@ -1,14 +1,12 @@
-var express = require('express');
-var router = express.Router();
-
-
-
-
+const express = require('express');
+const router = express.Router();
+const {verifyToken} =require("../middleware/verify-token")
+const {authorizeRoles}=require("../middleware/authorizeRoles")
 // Créer une instance de categorie.
 const Categorie = require('../models/categorie');
 const categorie = require('../models/categorie');
 // afficher la liste des categories triee
-router.get('/', async (req, res, )=> {
+router.get('/', verifyToken ,authorizeRoles("admin","user","visiteur"), async (req, res, )=> {
    try{ const cat=await Categorie.find({}, null, {sort: {'_id': -1}})
     res.status(200).json(cat)
    } catch(error){

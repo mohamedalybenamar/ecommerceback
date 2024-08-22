@@ -6,6 +6,8 @@ const app=express()
 const categorieRouter =require("./routes/categorie.routes")
 const scategorieRouter =require("./routes/scategorie.routes")
 const articleRouter =require("./routes/article.routes")
+const paymentRouter =require("./routes/payment.route")
+const userRouter =require('./routes/user.routes')
 dotenv.config()
 //middleware
 app.use(express.json())
@@ -21,6 +23,8 @@ app.get('/contact',(req,res)=>{
 app.use('/api/categories', categorieRouter);
 app.use('/api/scategories', scategorieRouter);
 app.use('/api/articles', articleRouter);
+app.use('/api/payement',paymentRouter);
+app.use('/api/users',userRouter);
 // Connexion à la base données
 mongoose.connect(process.env.DATABASECLOUD/*,{
 useNEWUrlParser: true, 
